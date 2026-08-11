@@ -21,21 +21,6 @@ export const AggregationProvider: FC<
   }>
 > = ({ children, aggregationData, appConfig }) => {
   useBeforeMounted(() => {
-
-   // @ts-ignore
-  const d = aggregationData as any
-
-  // @ts-ignore
-  if (d && !d.config) {
-    // @ts-ignore
-    d.config = {
-      title: d.seo?.title,
-      description: d.seo?.description,
-      server_url: d.url?.server_url,
-      web_url: d.url?.web_url,
-    }
-  }
-    
     if (!aggregationData) return
     jotaiStore.set(aggregationDataAtom, aggregationData)
     setWebUrl(aggregationData.url.webUrl)
