@@ -21,17 +21,18 @@ export const AggregationProvider: FC<
   }>
 > = ({ children, aggregationData, appConfig }) => {
   useBeforeMounted(() => {
-     // 👇 新加的：补 config（没有就造一个）
+    // 👇 补 config 兜底（后端返回的是 data.seo / data.url，没有 data.config）
   if (aggregationData && !aggregationData.config) {
-    aggregationData.config = {
-      title: aggregationData.seo?.title,
-      description: aggregationData.seo?.description,
-      server_url: aggregationData.url?.server_url,
-      web_url: aggregationData.url?.web_url,
+    const d = aggregationData as any
+    d.config = {
+      title: d.seo?.title,
+      description: d.seo?.description,
+      server_url: d.url?.server_url,
+      web_url: d.url?.web_url,
     }
   }
 
-    
+  // 👇 原来不动
     if (!aggregationData) return
     jotaiStore.set(aggregationDataAtom, aggregationData)
     setWebUrl(aggregationData.url.webUrl)
