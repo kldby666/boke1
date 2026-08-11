@@ -22,8 +22,12 @@ export const AggregationProvider: FC<
 > = ({ children, aggregationData, appConfig }) => {
   useBeforeMounted(() => {
 
-    if (aggregationData && !aggregationData.config) {
-    const d = aggregationData as any
+   // @ts-ignore
+  const d = aggregationData as any
+
+  // @ts-ignore
+  if (d && !d.config) {
+    // @ts-ignore
     d.config = {
       title: d.seo?.title,
       description: d.seo?.description,
